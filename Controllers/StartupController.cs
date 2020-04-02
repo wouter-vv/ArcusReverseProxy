@@ -1,17 +1,17 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using GuardNet;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
-using GuardNet;
 
 namespace Arcus.Demo.WebAPI.Controllers
 {
-    /// <summary>
-    /// API endpoint to check the health of the application.
-    /// </summary>
     [ApiController]
-    [Route("api/v1/health")]
-    public class HealthController : ControllerBase
+    [Route("/")]
+    public class StartupController : Controller
     {
         private readonly HealthCheckService _healthCheckService;
 
@@ -19,20 +19,14 @@ namespace Arcus.Demo.WebAPI.Controllers
         /// Initializes a new instance of the <see cref="HealthController"/> class.
         /// </summary>
         /// <param name="healthCheckService">The service to provide the health of the API application.</param>
-        public HealthController(HealthCheckService healthCheckService)
+        public StartupController(HealthCheckService healthCheckService)
         {
             Guard.NotNull(healthCheckService, nameof(healthCheckService));
 
             _healthCheckService = healthCheckService;
         }
 
-        /// <summary>
-        ///     Get Health
-        /// </summary>
-        /// <remarks>Provides an indication about the health of the API.</remarks>
-        /// <response code="200">API is healthy</response>
-        /// <response code="503">API is unhealthy or in degraded state</response>
-        [HttpGet(Name = "Health_Get")]
+        [HttpGet(Name = "Health_Get_Startup")]
         [ProducesResponseType(typeof(HealthReport), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(HealthReport), StatusCodes.Status503ServiceUnavailable)]
         public async Task<IActionResult> Get()

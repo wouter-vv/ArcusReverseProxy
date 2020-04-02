@@ -36,7 +36,7 @@ namespace Arcus.Demo.WebAPI
         {
 
 
-            services.AddControllers(options => 
+            services.AddControllers(options =>
             {
                 options.ReturnHttpNotAcceptable = true;
                 options.RespectBrowserAcceptHeader = true;
@@ -127,8 +127,8 @@ namespace Arcus.Demo.WebAPI
                     // check for everything after orders
                     app.RunProxy(async context =>
                     {
-                        var host = new UpstreamHost("https://google.com");
-                        
+                        var host = new UpstreamHost("https://codit-mock-server.azure-api.net/ord");
+
                         var response = await context
                             .ForwardTo(host)
                             .Send();
@@ -156,7 +156,17 @@ namespace Arcus.Demo.WebAPI
                             .ForwardTo(host)
                             .Send();
                     });
-                });
+
+                }); 
+                endpoints.MapControllerRoute(
+                     name: "Health_Get",
+                     pattern: "api/v1/health"
+                 );
+                endpoints.MapControllerRoute(
+                     name: "Health_Get_Startup",
+                     pattern: "/"
+                 );
+
             });
 
             //app.UseEndpoints(endpoints => endpoints.MapControllers());

@@ -23,6 +23,12 @@
             <response code="200">API is healthy</response>
             <response code="503">API is unhealthy or in degraded state</response>
         </member>
+        <member name="M:Arcus.Demo.WebAPI.Controllers.StartupController.#ctor(Microsoft.Extensions.Diagnostics.HealthChecks.HealthCheckService)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Arcus.Demo.WebAPI.Controllers.HealthController"/> class.
+            </summary>
+            <param name="healthCheckService">The service to provide the health of the API application.</param>
+        </member>
         <member name="M:Arcus.Demo.WebAPI.Startup.#ctor(Microsoft.Extensions.Configuration.IConfiguration)">
             <summary>
             Initializes a new instance of the <see cref="T:Arcus.Demo.WebAPI.Startup"/> class.
